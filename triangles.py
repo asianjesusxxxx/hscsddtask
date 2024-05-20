@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import tkinter as tk 
 from gtts import gTTS
 from io import BytesIO
 import pygame
@@ -10,7 +11,6 @@ import customtkinter
 # from tkinter import messagebox
 root = Tk()
 root.title('triangles')
-root.geometry("800x800")
 
 # c= Canvas(root, bg="", height=200, width=200)
 # c.place(y=100, x=0)
@@ -28,7 +28,10 @@ page4.grid(row=0, column=0)
 page2.grid_forget()
 page3.grid_forget()
 
+
+
 def change_font_size(event):
+    selected_size 
     size = int(selected_size.get())
     lbl.configure(font=("Arial", size))
     lbl1.configure(font=("Arial", size))
@@ -120,12 +123,14 @@ def updateq():
     qlbl.configure(text=questions[current_q_index]["question"])
 
 def checkanswer():
+    global current_q_index, score 
     user_answer = ent.get()
     correct_answer = questions[current_q_index]["answer"]
     if user_answer == correct_answer:
         reslbl.configure(text="correct")
+        score+=1
     else:
-        reslbl.configure(text="incorect")
+        reslbl.configure(text=f"incorrect! The correct answer was {correct_answer}")
   
     ent.delete(0, END)
     nextq()
@@ -136,6 +141,8 @@ def nextq():
     current_q_index += 1
     if current_q_index < total_q:
         updateq()
+    else:
+        qlbl.configure(text=f"You scores {score} out of {total_q}")
 
 
 # instructions page 1 
@@ -169,17 +176,17 @@ lbl2.grid(row=0, column=1)
 
 imagepath = "C:/Users/praja/OneDrive/Desktop/ins2triangles1-removebg.png"
 img1 = ImageTk.PhotoImage(Image.open(imagepath))
-t2 = customtkinter.CTkLabel(page2, image=img1)
+t2 = Label(page2, image=img1, text="")
 t2.grid(row=1, column=1) 
 
 imagepath = "C:/Users/praja/OneDrive/Desktop/ins2triangles2-removebg.png"
 img2 = ImageTk.PhotoImage(Image.open(imagepath))
-t2 = customtkinter.CTkLabel(page2, image=img2)
+t2 = Label(page2, image=img2, text="")
 t2.grid(row=2, column=1) 
 
 imagepath = "C:/Users/praja/OneDrive/Desktop/ins2triangles3-removebg.png"
 img3 = ImageTk.PhotoImage(Image.open(imagepath))
-t2 = customtkinter.CTkLabel(page2, image=img3)
+t2 = Label(page2, image=img3, text="")
 t2.grid(row=3, column=1) 
 
 butt2 = customtkinter.CTkButton(page2, text="next",command=show_page3)
@@ -225,7 +232,7 @@ lbl3.grid(row=0, column=1)
 
 imagepath = "C:/Users/praja/OneDrive/Desktop/ins3_tri-removebg.png"
 img4 = ImageTk.PhotoImage(Image.open(imagepath))
-t3 = customtkinter.CTkLabel(page3, image=img4)
+t3 = Label(page3, image=img4, text="")
 t3.grid(row=1, column=1) 
 
 t4 = customtkinter.CTkLabel(page3, text="""
@@ -245,8 +252,15 @@ page1.tkraise()
 
 
 questions = [ 
-    {"question": "what is 2 + 2", "answer": "4"},
-    {"question": "what is 3 + 3", "answer": "6"}, 
+    {"question": "what type of triangle is this?", "answer": "equilateral"},
+    {"question": "what type of triangle is this?", "answer": "scalene"},
+    {"question": "what type of triangle is this?", "answer": "isosceles"},
+    {"question": "what type of triangle is this?", "answer": "scalene"},
+    {"question": "what type of triangle is this?", "answer": "equilateral"},
+    {"question": "what type of triangle is this?", "answer": "scalene"},
+    {"question": "what type of triangle is this?", "answer": "isosceles"},
+    {"question": "what type of triangle is this?", "answer": "isosceles"},
+    {"question": "what type of triangle is this?", "answer": "eqilateral"}, 
         ]
 
 current_q_index = 0
@@ -267,18 +281,38 @@ subutt.grid(row=2, column=0)
 
 
 #font size
-font_sizes = [8, 10, 12, 14, 16, 18, 20, 24, 28, 32]
+font_sizes = [18, 20, 24, 28, 32]
 selected_size = StringVar()
-fontsize_combo = ttk.Combobox(root, textvariable=selected_size, values=font_sizes, width=2)
-fontsize_combo.current(2)  
-fontsize_combo.bind("<<ComboboxSelected>>", change_font_size)
-fontsize_combo.grid(row=0, column=2)
+fontsize_combo1 = ttk.Combobox(page1, textvariable=selected_size, values=font_sizes, width=2)
+fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2)
+fontsize_combo3 = ttk.Combobox(page3, textvariable=selected_size, values=font_sizes, width=2)
+fontsize_combo4 = ttk.Combobox(page4, textvariable=selected_size, values=font_sizes, width=2)
+
+# selected_size.set(font_sizes[2])
+fontsize_combo1.current(2)  
+fontsize_combo2.current(2)  
+fontsize_combo3.current(2)  
+fontsize_combo4.current(2)  
+
+
+fontsize_combo1.bind("<<ComboboxSelected>>", change_font_size)
+fontsize_combo2.bind("<<ComboboxSelected>>", change_font_size)
+fontsize_combo3.bind("<<ComboboxSelected>>", change_font_size)
+fontsize_combo4.bind("<<ComboboxSelected>>", change_font_size)
+
+fontsize_combo1.grid(row=0, column=3)
+fontsize_combo2.grid(row=0, column=3)
+fontsize_combo3.grid(row=0, column=3)
+fontsize_combo4.grid(row=0, column=3)
+
+
+
 
 # translator
-transcombo = ttk.Combobox(root, width=10, value=langlist)
-transcombo.current(21)
-transcombo.bind("<<ComboboxSelected>>", trans)
-transcombo.grid(row=0, column=3)
+# transcombo = ttk.Combobox(root, width=10, value=langlist)
+# transcombo.current(21)
+# transcombo.bind("<<ComboboxSelected>>", trans)
+# transcombo.grid(row=0, column=3)
  
 
 
