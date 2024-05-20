@@ -12,7 +12,7 @@ app.title("Quiz Application")
 # Define questions and answers
 questions = [
     {"question": "What is 2 + 2?", "answer": "4", "image": "C:/Users/praja/OneDrive/Pictures/Screenshots/Screenshot 2023-05-24 001325.png"},
-    # {"question": "What is the capital of France?", "answer": "Paris", "image": "path/to/image2.png"},
+    {"question": "What is the capital of France?", "answer": "Paris", "image": "C:/Users/praja/OneDrive/Pictures/Screenshots/Screenshot 2023-05-24 001139.png"},
     # {"question": "What is 5 * 3?", "answer": "15", "image": "path/to/image3.png"},
     # {"question": "What is the largest ocean?", "answer": "Pacific", "image": "path/to/image4.png"},
     # {"question": "What is the square root of 81?", "answer": "9", "image": "path/to/image5.png"},
@@ -37,8 +37,8 @@ def update_question():
     
     # Load and resize the image
     image = Image.open(question_data["image"])
-    resized_image = image.resize(200, 200, Image.ANTIALIAS)
-    tk_image = ImageTk.PhotoImage(resized_image)
+    resized_image = image.resize(200, 200)
+    tk_image = ImageTk.PhotoImage(image)
     
     image_label.configure(image=tk_image)
     image_label.image = tk_image  # Keep a reference to avoid garbage collection

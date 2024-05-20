@@ -121,6 +121,13 @@ def show_page4():
 
 def updateq():
     qlbl.configure(text=questions[current_q_index]["question"])
+    image_path = questions[current_q_index].get("image")
+    if image_path:
+        image = Image.open(image_path)
+        resized_image = image.resize((200, 200), Image.Resampling.LANCZOS)
+        tk_image = ImageTk.PhotoImage(resized_image)
+        image_label.configure(image=tk_image)
+        image_label.image = tk_image
 
 def checkanswer():
     global current_q_index, score 
@@ -131,6 +138,8 @@ def checkanswer():
         score+=1
     else:
         reslbl.configure(text=f"incorrect! The correct answer was {correct_answer}")
+        # image_label.configure(image="")
+        
   
     ent.delete(0, END)
     nextq()
@@ -143,6 +152,7 @@ def nextq():
         updateq()
     else:
         qlbl.configure(text=f"You scores {score} out of {total_q}")
+    
 
 
 # instructions page 1 
@@ -252,15 +262,15 @@ page1.tkraise()
 
 
 questions = [ 
-    {"question": "what type of triangle is this?", "answer": "equilateral"},
-    {"question": "what type of triangle is this?", "answer": "scalene"},
-    {"question": "what type of triangle is this?", "answer": "isosceles"},
-    {"question": "what type of triangle is this?", "answer": "scalene"},
-    {"question": "what type of triangle is this?", "answer": "equilateral"},
-    {"question": "what type of triangle is this?", "answer": "scalene"},
-    {"question": "what type of triangle is this?", "answer": "isosceles"},
-    {"question": "what type of triangle is this?", "answer": "isosceles"},
-    {"question": "what type of triangle is this?", "answer": "eqilateral"}, 
+    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi1.png"},
+    {"question": "what type of triangle is this?", "answer": "scalene", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/scal1.png"},
+    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso1.png"},
+    {"question": "what type of triangle is this?", "answer": "scalene", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/scal2.png"},
+    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi2.png"},
+    {"question": "what type of triangle is this?", "answer": "scalene", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/scal3.png"},
+    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso2.png"},
+    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso3.png"},
+    {"question": "what type of triangle is this?", "answer": "eqilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi3.png"}, 
         ]
 
 current_q_index = 0
@@ -278,6 +288,9 @@ ent.grid(row=1, column=0)
 
 subutt = customtkinter.CTkButton(page4, text="submit", command=checkanswer)
 subutt.grid(row=2, column=0)
+
+image_label = Label(page4)
+image_label.grid(row=2, column=3)
 
 
 #font size
