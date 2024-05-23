@@ -5,13 +5,20 @@ from gtts import gTTS
 from io import BytesIO
 import pygame
 from PIL import ImageTk, Image 
-import googletrans 
-import textblob 
+# import googletrans 
+# import textblob 
 import customtkinter 
+# from tkinter import font as tkFont
+# import customtkinter as ctk
+from deep_translator import GoogleTranslator
 # from tkinter import messagebox
+
 root = Tk()
 root.title('triangles')
-root.geometry("2000x2000")
+root.geometry("1600x800")
+
+customtkinter.set_appearance_mode("light") #work it out
+customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue
 
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
@@ -25,28 +32,22 @@ height = root.winfo_screenheight()
 # c.grid(row=200, column=200)
 
 
-page1 = customtkinter.CTkFrame(root, width=100, height=100)
-page2 = customtkinter.CTkFrame(root, width=100, height=100)
-page3 = customtkinter.CTkFrame(root, width=100, height=100)
-page4 = customtkinter.CTkFrame(root, width=100, height=100)
+page1 =  Frame(root, width=100, height=100)
+page2 =  Frame(root, width=100, height=100)
+page3 =  Frame(root, width=100, height=100)
+page4 =  Frame(root, width=100, height=100)
 
 
 page1.grid(row=0, column=0)
-page1.grid_propagate(False)
-
 page2.grid(row=0, column=0)
-page2.grid_propagate(False)
-
 page3.grid(row=0, column=0)
-page3.grid_propagate(False)
-
 page4.grid(row=0, column=0)
-page4.grid_propagate(False)
 
 
 page2.grid_forget()
 page3.grid_forget()
 
+# default_font = ("Helvetica", 14)
 
 
 def change_font_size(event):
@@ -87,24 +88,6 @@ def change_font_size(event):
 
 
 
-# def trans():
-#     try: 
-#         #get lang from dic key
-#         #get the to lang key 
-#         for key, value in lang.items():
-#             if (value == transcombo1.get()):
-#                 to_language_key = key 
-
-#         words = textblob.TextBlob(transcombo1.get(1.0, END))
-
-# #translate text
-# words = words.tranlate(to_lang=to_language_key , to=)
-
-
- 
-lang = googletrans.LANGUAGES
-langlist = list(lang.values())
-
 
 def play(text):
     tts = gTTS(text)
@@ -118,7 +101,6 @@ def play(text):
 
 def show_page2():
     page2.grid(row=0, column=0)
-    page2.grid_propagate(False)
     lambda: page2.tkraise()
     page1.grid_forget()
     page3.grid_forget()
@@ -126,8 +108,7 @@ def show_page2():
 
 
 def show_page1():
-    page1.grid(row=0, column=0)
-    page1.grid_propagate(False)
+    page1.grid(row=0, column=0) 
     lambda: page1.tkraise()
     page2.grid_forget()
     page3.grid_forget()
@@ -135,8 +116,7 @@ def show_page1():
 
 
 def show_page3():
-    page3.grid(row=0, column=0)
-    page3.grid_propagate(False)
+    page3.grid(row=0, column=0) 
     lambda: page3.tkraise()
     page1.grid_forget()
     page2.grid_forget()
@@ -144,8 +124,7 @@ def show_page3():
 
 
 def show_page4():
-    page4.grid(row=0, column=0)
-    page4.grid_propagate(False)
+    page4.grid(row=0, column=0) 
     lambda: page4.tkraise()
     page1.grid_forget()
     page2.grid_forget()
@@ -171,10 +150,10 @@ def checkanswer():
         reslbl.configure(text="correct")
         score+=1
     else:
-        reslbl.configure(text=f"incorrect! The correct answer was {correct_answer}")
+        reslbl.configure(text=f"""incorrect! 
+                          The answer was {correct_answer}""")
         # image_label.configure(image="")
         
-  
     ent.delete(0, END)
     nextq()
 
@@ -185,15 +164,55 @@ def nextq():
     if current_q_index < total_q:
         updateq()
     else:
+        reslbl.configure(text=" ")
+        image_label.configure(text=" ")
         qlbl.configure(text=f"You scores {score} out of {total_q}")
     
 
+
+def update_language(event=None):
+    selected_language_code = langlist[language_var.get()]
+    translator = GoogleTranslator(source='auto', target=selected_language_code)
+
+    translated_lbl1 = translator.translate("instructions:part 1")
+    translated_l1 = translator.translate("""
+         a triangle will be shown to you. 
+         calculate angle and identify the triangle.
+         if your answer is correct then you will earn 1 point. 
+         if the answer is wrong no points will be deducted. 
+         answer every question before the 60 second timer runs out
+         """)
+    translated_playbutt1 = translator.translate("Instructions")
+    translated_butt1 = translator.translate("next")
+  
+
+
+
+    lbl1.configure(text=translated_lbl1)
+    t1.configure(text=translated_l1)
+    playbutt1.configure(text=translated_playbutt1)
+    butt1.configure(text=translated_butt1)
+
+ 
+# lang = googletrans.LANGUAGES
+# langlist = list(lang.values())
+
+langlist = {
+    'English': 'en',
+    'Spanish': 'es',
+    'French': 'fr',
+    'German': 'de',
+    'Chinese': 'zh-CN',
+    'Japanese': 'ja',
+    'Korean': 'ko',
+    'Russian': 'ru'
+}
 
 # instructions page 1 
 lbl = customtkinter.CTkLabel(page1, text="            ")
 lbl.grid(row=2, column=0)
 
-lbl1 = customtkinter.CTkLabel(page1, text="instructions:part 1")
+lbl1 = customtkinter.CTkLabel(page1, text="instructions:part 1") #, font=("Arial", default_font)
 lbl1.grid(row=0, column=1)
 
 t1= customtkinter.CTkLabel(page1, text="""
@@ -327,8 +346,11 @@ image_label = Label(page4)
 image_label.grid(row=2, column=3)
 
 
+#default font size
+# dsize = StringVar.set('24')
+
 #font size
-font_sizes = [18, 20, 24, 28, 32]
+font_sizes = [24, 26, 28, 32, 34]
 selected_size = StringVar()
 fontsize_combo1 = ttk.Combobox(page1, textvariable=selected_size, values=font_sizes, width=2)
 fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2)
@@ -341,7 +363,6 @@ fontsize_combo2.current(2)
 fontsize_combo3.current(2)  
 fontsize_combo4.current(2)  
 
-
 fontsize_combo1.bind("<<ComboboxSelected>>", change_font_size)
 fontsize_combo2.bind("<<ComboboxSelected>>", change_font_size)
 fontsize_combo3.bind("<<ComboboxSelected>>", change_font_size)
@@ -353,35 +374,13 @@ fontsize_combo3.grid(row=0, column=3)
 fontsize_combo4.grid(row=0, column=3)
 
 # selected_size = StringVar.set('24')
-
-
-# # translator
-# language_var = StringVar()
-
-# transcombo1 = ttk.Combobox(page1, width=10, textvariable= language_var)
-# # transcombo2 = ttk.Combobox(page2, width=10, value=langlist)
-# # transcombo3 = ttk.Combobox(page3, width=10, value=langlist)
-# # transcombo4 = ttk.Combobox(page4, width=10, value=langlist)
-
-# transcombo1.current(21)
-# # transcombo2.current(21)
-# # transcombo3.current(21)
-# # transcombo4.current(21)
-
-# transcombo1.bind("<<ComboboxSelected>>", trans)
-# # transcombo2.bind("<<ComboboxSelected>>", trans)
-# # transcombo3.bind("<<ComboboxSelected>>", trans)
-# # transcombo4.bind("<<ComboboxSelected>>", trans)
-
-
-# transcombo1.grid(row=0, column=4)
-# # transcombo2.grid(row=0, column=4)
-# # transcombo3.grid(row=0, column=4)
-# # transcombo4.grid(row=0, column=4)
  
-
-
-
+language_var = tk.StringVar()
+language_dropdown = ttk.Combobox(page1, textvariable=language_var)
+language_dropdown['values'] = list(langlist.keys())
+language_dropdown.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+language_dropdown.bind('<<ComboboxSelected>>', update_language)
+language_var.set('English')
 
 
 root.mainloop()
