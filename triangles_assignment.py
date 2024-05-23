@@ -15,6 +15,9 @@ root.title('triangles')
 # c= Canvas(root, bg="", height=200, width=200)
 # c.place(y=100, x=0)
 
+selected_size = StringVar(value = "24")
+
+
 page1 = customtkinter.CTkFrame(root)
 page2 = customtkinter.CTkFrame(root)
 page3 = customtkinter.CTkFrame(root)
@@ -31,7 +34,6 @@ page3.grid_forget()
 
 
 def change_font_size(event):
-    selected_size 
     size = int(selected_size.get())
     lbl.configure(font=("Arial", size))
     lbl1.configure(font=("Arial", size))
@@ -46,7 +48,10 @@ def change_font_size(event):
     sbutt3.configure(font=("Arial", size))
     bbutt1.configure(font=("Arial", size))
     bbutt2.configure(font=("Arial", size))
-    fontsize_combo.configure(font=("Arial", size))
+    fontsize_combo1.configure(font=("Arial", size))
+    fontsize_combo2.configure(font=("Arial", size))
+    fontsize_combo3.configure(font=("Arial", size))
+    fontsize_combo4.configure(font=("Arial", size))
     playbutt1.configure(font=("Arial", size))
     playbutt2.configure(font=("Arial", size))
     playbutt3.configure(font=("Arial", size))
@@ -66,11 +71,12 @@ def change_font_size(event):
 
 
 
-def trans():
-    lbl.configure(lang=())
-    lbl1.configure(lang=())
-    lbl2.configure(lang=())
-    lbl3.configure(lang=())
+def trans(event):
+    selected_lang = event.widget.get() 
+    lbl1.configure(lang = selected_lang)
+    # lbl1.configure(lang=())
+    # lbl2.configure(lang=())
+    # lbl3.configure(lang=())
  
 lang = googletrans.LANGUAGES
 langlist = list(lang.values())
@@ -270,7 +276,7 @@ questions = [
     {"question": "what type of triangle is this?", "answer": "scalene", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/scal3.png"},
     {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso2.png"},
     {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso3.png"},
-    {"question": "what type of triangle is this?", "answer": "eqilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi3.png"}, 
+    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi3.png"}, 
         ]
 
 current_q_index = 0
@@ -295,7 +301,7 @@ image_label.grid(row=2, column=3)
 
 #font size
 font_sizes = [18, 20, 24, 28, 32]
-selected_size = StringVar()
+selected_size = StringVar(value = "24")
 fontsize_combo1 = ttk.Combobox(page1, textvariable=selected_size, values=font_sizes, width=2)
 fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2)
 fontsize_combo3 = ttk.Combobox(page3, textvariable=selected_size, values=font_sizes, width=2)
@@ -322,10 +328,26 @@ fontsize_combo4.grid(row=0, column=3)
 
 
 # translator
-# transcombo = ttk.Combobox(root, width=10, value=langlist)
-# transcombo.current(21)
-# transcombo.bind("<<ComboboxSelected>>", trans)
-# transcombo.grid(row=0, column=3)
+transcombo1 = ttk.Combobox(page1, width=10, value=langlist)
+transcombo2 = ttk.Combobox(page2, width=10, value=langlist)
+transcombo3 = ttk.Combobox(page3, width=10, value=langlist)
+transcombo4 = ttk.Combobox(page4, width=10, value=langlist)
+
+transcombo1.current(21)
+transcombo2.current(21)
+transcombo3.current(21)
+transcombo4.current(21)
+
+transcombo1.bind("<<ComboboxSelected>>", trans)
+transcombo2.bind("<<ComboboxSelected>>", trans)
+transcombo3.bind("<<ComboboxSelected>>", trans)
+transcombo4.bind("<<ComboboxSelected>>", trans)
+
+
+transcombo1.grid(row=0, column=4)
+transcombo2.grid(row=0, column=4)
+transcombo3.grid(row=0, column=4)
+transcombo4.grid(row=0, column=4)
  
 
 
