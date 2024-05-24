@@ -11,13 +11,14 @@ import customtkinter
 # from tkinter import font as tkFont
 # import customtkinter as ctk
 from deep_translator import GoogleTranslator
+import time 
 # from tkinter import messagebox
 
 root = Tk()
 root.title('triangles')
 root.geometry("1600x800")
 
-customtkinter.set_appearance_mode("light") #work it out
+customtkinter.set_appearance_mode("light") 
 customtkinter.set_default_color_theme("green")  # Themes: "blue" (standard), "green", "dark-blue
 
 root.grid_rowconfigure(0, weight=1)
@@ -47,7 +48,31 @@ page4.grid(row=0, column=0)
 page2.grid_forget()
 page3.grid_forget()
 
-# default_font = ("Helvetica", 14)
+default_font = ("Arial", 28)
+
+# timer 
+counting = False
+
+def conut_down(sec):
+    counting = True
+    while sec:
+        mins, secs = divmod(sec, 60)
+        time_format = "{:2d}:{:2d}".format(mins, secs)
+        print(time_format)
+        time.sleep(1)
+        sec = sec - 1
+    print("stop")
+
+conut_down(5)
+
+def putonscreen():
+    pass 
+
+    
+
+second_var = tk.StringVar(value=' 00 ')
+second_lbl = tk.Label(page4, font=('Arial', 50), textvariable=second_var)
+second_lbl.grid(row=0, column=0)
 
 
 def change_font_size(event):
@@ -58,8 +83,8 @@ def change_font_size(event):
     lbl3.configure(font=("Arial", size))
     t1.configure(font=("Arial", size))
     t2.configure(font=("Arial", size))
-    t3.configure(font=("Arial", size))
-    t4.configure(font=("Arial", size))
+    # t3.configure(font=("Arial", size))
+    # t4.configure(font=("Arial", size))
     butt1.configure(font=("Arial", size))
     butt2.configure(font=("Arial", size))
     sbutt3.configure(font=("Arial", size))
@@ -212,7 +237,7 @@ langlist = {
 lbl = customtkinter.CTkLabel(page1, text="            ")
 lbl.grid(row=2, column=0)
 
-lbl1 = customtkinter.CTkLabel(page1, text="instructions:part 1") #, font=("Arial", default_font)
+lbl1 = customtkinter.CTkLabel(page1, text="instructions:part 1", font = default_font) 
 lbl1.grid(row=0, column=1)
 
 t1= customtkinter.CTkLabel(page1, text="""
@@ -221,93 +246,93 @@ t1= customtkinter.CTkLabel(page1, text="""
          if your answer is correct then you will earn 1 point. 
          if the answer is wrong no points will be deducted. 
          answer every question before the 60 second timer runs out
-         """)
+         """, font = default_font)
 t1.grid(row=1, column=1)
 
-butt1 = customtkinter.CTkButton(page1, text="next",command=show_page2)
+butt1 = customtkinter.CTkButton(page1, text="next",command=show_page2, font = default_font)
 butt1.grid(row=2, column=2)
 
-playbutt1 = customtkinter.CTkButton(page1, text="Instructions", command=lambda: play("instructions part 1"))
+playbutt1 = customtkinter.CTkButton(page1, text="Instructions", command=lambda: play("instructions part 1"), font = default_font)
 playbutt1.grid(row=0, column=2)
 
-playbutt2 = customtkinter.CTkButton(page1, text="Instructions", command=lambda: play("a triangle will be shown to you. calculate angle and identify the triangle.if your answer is correct then you will earn 1 point. if the answer is wrong no points will be deducted. answer every question before the 60 second timer runs out"))
+playbutt2 = customtkinter.CTkButton(page1, text="Instructions", font = default_font, command=lambda: play("a triangle will be shown to you. calculate angle and identify the triangle.if your answer is correct then you will earn 1 point. if the answer is wrong no points will be deducted. answer every question before the 60 second timer runs out"))
 playbutt2.grid(row=2, column=1)
 
 #instructions page 2
-lbl2 = customtkinter.CTkLabel(page2, text="instructions:part 2")
+lbl2 = customtkinter.CTkLabel(page2, text="instructions:part 2", font = default_font)
 lbl2.grid(row=0, column=1)
 
-imagepath = "C:/Users/praja/OneDrive/Desktop/ins2triangles1-removebg.png"
+imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/New folder/ins2triangles1-removebg.png"
 img1 = ImageTk.PhotoImage(Image.open(imagepath))
 t2 = Label(page2, image=img1, text="")
 t2.grid(row=1, column=1) 
 
-imagepath = "C:/Users/praja/OneDrive/Desktop/ins2triangles2-removebg.png"
+imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/New folder/ins2triangles2-removebg.png"
 img2 = ImageTk.PhotoImage(Image.open(imagepath))
 t2 = Label(page2, image=img2, text="")
 t2.grid(row=2, column=1) 
 
-imagepath = "C:/Users/praja/OneDrive/Desktop/ins2triangles3-removebg.png"
+imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/New folder/ins2triangles3-removebg.png"
 img3 = ImageTk.PhotoImage(Image.open(imagepath))
 t2 = Label(page2, image=img3, text="")
 t2.grid(row=3, column=1) 
 
-butt2 = customtkinter.CTkButton(page2, text="next",command=show_page3)
+butt2 = customtkinter.CTkButton(page2, text="next",command=show_page3, font = default_font)
 butt2.grid(row=4, column=2)
 
-bbutt1 = customtkinter.CTkButton(page2, text="back",command=show_page1)
+bbutt1 = customtkinter.CTkButton(page2, text="back",command=show_page1, font = default_font)
 bbutt1.grid(row=4, column=0)
 
-l1 = customtkinter.CTkLabel(page2, text = "equilateral triangle")
+l1 = customtkinter.CTkLabel(page2, text = "equilateral triangle", font = default_font)
 l1.grid(row=1, column=2)
 
-l2 = customtkinter.CTkLabel(page2, text = "isosceles triangle")
+l2 = customtkinter.CTkLabel(page2, text = "isosceles triangle", font = default_font)
 l2.grid(row=2, column=2)
 
-l3 = customtkinter.CTkLabel(page2, text = "scalene triangle")
+l3 = customtkinter.CTkLabel(page2, text = "scalene triangle", font = default_font)
 l3.grid(row=3, column=2)
 
-l4 = customtkinter.CTkLabel(page2, text = "3 equal sides")
+l4 = customtkinter.CTkLabel(page2, text = "3 equal sides", font = default_font)
 l4.grid(row=1, column=3)
 
-l5 = customtkinter.CTkLabel(page2, text = "two equal sides")
+l5 = customtkinter.CTkLabel(page2, text = "two equal sides", font = default_font)
 l5.grid(row=2, column=3)
 
-l6 = customtkinter.CTkLabel(page2, text = "no equal sides")
+l6 = customtkinter.CTkLabel(page2, text = "no equal sides", font = default_font)
 l6.grid(row=3, column=3)
 
-playbutt3 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("instructions part 2"))
+playbutt3 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("instructions part 2"), font = default_font)
 playbutt3.grid(row=0, column=4)
 
-playbutt4 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("an equilateral triangle has three equal sides"))
+playbutt4 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("an equilateral triangle has three equal sides"), font = default_font)
 playbutt4.grid(row=1, column=4)
 
-playbutt5 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("an isosceles triangle has two equal sides"))
+playbutt5 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("an isosceles triangle has two equal sides"), font = default_font)
 playbutt5.grid(row=2, column=4)
 
-playbutt6 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("a scalene triangle has no equal sides"))
+playbutt6 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("a scalene triangle has no equal sides"), font = default_font)
 playbutt6.grid(row=3, column=4)
 
 # instructions page 3
-lbl3 = customtkinter.CTkLabel(page3, text="instructions:part 3")
+lbl3 = customtkinter.CTkLabel(page3, text="instructions:part 3", font = default_font)
 lbl3.grid(row=0, column=1)
 
 
-imagepath = "C:/Users/praja/OneDrive/Desktop/ins3_tri-removebg.png"
-img4 = ImageTk.PhotoImage(Image.open(imagepath))
-t3 = Label(page3, image=img4, text="")
-t3.grid(row=1, column=1) 
+# imagepath = "C:/Users/praja/OneDrive/Desktop/ins3_tri-removebg.png"
+# img4 = ImageTk.PhotoImage(Image.open(imagepath))
+# t3 = Label(page3, image=img4, text="")
+# t3.grid(row=1, column=1) 
 
-t4 = customtkinter.CTkLabel(page3, text="""
-           angle sum of a triangle is 180 
-                 90+45+45=180
-           """)
-t4.grid(row=1, column=2)
+# t4 = customtkinter.CTkLabel(page3, text="""
+#            angle sum of a triangle is 180 
+#                  90+45+45=180
+#            """, font = default_font)
+# t4.grid(row=1, column=2)
 
-sbutt3 = customtkinter.CTkButton(page3, text="start",command=show_page4)
+sbutt3 = customtkinter.CTkButton(page3, text="start",command=show_page4, font = default_font)
 sbutt3.grid(row=4, column=2)
 
-bbutt2 = customtkinter.CTkButton(page3, text="back",command=show_page2)
+bbutt2 = customtkinter.CTkButton(page3, text="back",command=show_page2, font = default_font)
 bbutt2.grid(row=4, column=0)
 
 page1.tkraise()
@@ -330,16 +355,16 @@ current_q_index = 0
 total_q = len(questions)
 score = 0
 
-qlbl = customtkinter.CTkLabel(page4, text="")
+qlbl = customtkinter.CTkLabel(page4, text="", font = default_font)
 qlbl.grid(row=0, column=0)
 
-reslbl = customtkinter.CTkLabel(page4, text="")
+reslbl = customtkinter.CTkLabel(page4, text="", font = default_font)
 reslbl.grid(row=3, column=0)
 
-ent = customtkinter.CTkEntry(page4)
+ent = customtkinter.CTkEntry(page4, font = default_font)
 ent.grid(row=1, column=0)
 
-subutt = customtkinter.CTkButton(page4, text="submit", command=checkanswer)
+subutt = customtkinter.CTkButton(page4, text="submit", command=checkanswer, font = default_font)
 subutt.grid(row=2, column=0)
 
 image_label = Label(page4)
@@ -352,10 +377,10 @@ image_label.grid(row=2, column=3)
 #font size
 font_sizes = [24, 26, 28, 32, 34]
 selected_size = StringVar()
-fontsize_combo1 = ttk.Combobox(page1, textvariable=selected_size, values=font_sizes, width=2)
-fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2)
-fontsize_combo3 = ttk.Combobox(page3, textvariable=selected_size, values=font_sizes, width=2)
-fontsize_combo4 = ttk.Combobox(page4, textvariable=selected_size, values=font_sizes, width=2)
+fontsize_combo1 = ttk.Combobox(page1, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
+fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
+fontsize_combo3 = ttk.Combobox(page3, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
+fontsize_combo4 = ttk.Combobox(page4, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
 
 # selected_size.set(font_sizes[2])
 fontsize_combo1.current(2)  
@@ -376,7 +401,7 @@ fontsize_combo4.grid(row=0, column=3)
 # selected_size = StringVar.set('24')
  
 language_var = tk.StringVar()
-language_dropdown = ttk.Combobox(page1, textvariable=language_var)
+language_dropdown = ttk.Combobox(page1, textvariable=language_var, width=6, font = default_font)
 language_dropdown['values'] = list(langlist.keys())
 language_dropdown.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
 language_dropdown.bind('<<ComboboxSelected>>', update_language)
