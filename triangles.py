@@ -212,6 +212,9 @@ def update_language(event=None):
     translator = GoogleTranslator(source='auto', target=selected_language_code)
 
     translated_lbl1 = translator.translate("instructions:part 1")
+    translated_lbl2 = translator.translate("instructions:part 2")
+    translated_lbl3 = translator.translate("instructions:part 3") 
+
     translated_l1 = translator.translate("""
          a triangle will be shown to you. 
          calculate angle and identify the triangle.
@@ -220,13 +223,60 @@ def update_language(event=None):
          answer every question before the 60 second timer runs out
          """)
     translated_playbutt1 = translator.translate("Instructions")
+    translated_playbutt2 = translator.translate("Instructions")
+    translated_playbutt3 = translator.translate("Instructions")
+    translated_playbutt4 = translator.translate("Instructions")
+    translated_playbutt5 = translator.translate("Instructions")
+    translated_playbutt6 = translator.translate("Instructions")
+
     translated_butt1 = translator.translate("next")
-  
+    translated_butt2 = translator.translate("next")
+
+    translated_bbutt1 = translator.translate("back")
+    translated_bbutt2 = translator.translate("back")
+
+    translated_l1 = translator.translate("equilateral triangle")
+    translated_l2 = translator.translate("isosceles triangle")
+    translated_l3 = translator.translate("scalene triangle")
+    translated_l4 = translator.translate("three equal sides")
+    translated_l5 = translator.translate("two equal sides")
+    translated_l6 = translator.translate("no equal sides")
+
+    translated_qlbl = translator.translate("")
+
+    translated_subutt = translator.translate("submit") 
 
     lbl1.configure(text=translated_lbl1)
+    lbl2.configure(text=translated_lbl2)
+    lbl3.configure(text=translated_lbl3)
+
     t1.configure(text=translated_l1)
+
     playbutt1.configure(text=translated_playbutt1)
+    playbutt2.configure(text=translated_playbutt2)
+    playbutt3.configure(text=translated_playbutt2)
+    playbutt4.configure(text=translated_playbutt4)
+    playbutt5.configure(text=translated_playbutt5)
+    playbutt6.configure(text=translated_playbutt6)
+
     butt1.configure(text=translated_butt1)
+    butt2.configure(text=translated_butt2)
+
+    bbutt1.configure(text= translated_bbutt1)
+    bbutt2.configure(text= translated_bbutt2)
+
+    sbutt3.configure(text=translated_subutt)
+
+    qlbl.configure(text=translated_qlbl)
+    # reslbl.configure(text=)
+
+    l1.configure(text=translated_l1)
+    l2.configure(text=translated_l2)
+    l3.configure(text=translated_l3)
+    l4.configure(text=translated_l4)
+    l5.configure(text=translated_l5)
+    l6.configure(text=translated_l6)
+
 
 
 langlist = {
@@ -295,6 +345,7 @@ playbutt1.grid(row=0, column=2)
 playbutt2 = customtkinter.CTkButton(page1, text="Instructions", font = default_font, command=lambda: play("a triangle will be shown to you. calculate angle and identify the triangle.if your answer is correct then you will earn 1 point. if the answer is wrong no points will be deducted. answer every question before the 60 second timer runs out"))
 playbutt2.grid(row=2, column=1)
 
+
 #instructions page 2
 lbl2 = customtkinter.CTkLabel(page2, text="instructions:part 2", font = default_font)
 lbl2.grid(row=0, column=1)
@@ -339,7 +390,7 @@ l6 = customtkinter.CTkLabel(page2, text = "no equal sides", font = default_font)
 l6.grid(row=3, column=3)
 
 playbutt3 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("instructions part 2"), font = default_font)
-playbutt3.grid(row=0, column=4)
+playbutt3.grid(row=0, column=2)
 
 playbutt4 = customtkinter.CTkButton(page2, text="Instructions", command=lambda: play("an equilateral triangle has three equal sides"), font = default_font)
 playbutt4.grid(row=1, column=4)
@@ -421,12 +472,30 @@ fontsize_combo2.grid(row=0, column=3)
 fontsize_combo3.grid(row=0, column=3)
 fontsize_combo4.grid(row=0, column=3)
 
- 
+#language 
 language_var = tk.StringVar()
-language_dropdown = ttk.Combobox(page1, textvariable=language_var, width=6, font = default_font)
-language_dropdown['values'] = list(langlist.keys())
-language_dropdown.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
-language_dropdown.bind('<<ComboboxSelected>>', update_language)
+
+language_dropdown1 = ttk.Combobox(page1, textvariable=language_var, width=6, font = default_font)
+language_dropdown2 = ttk.Combobox(page2, textvariable=language_var, width=6, font = default_font)
+# language_dropdown3 = ttk.Combobox(page1, textvariable=language_var, width=6, font = default_font)
+# language_dropdown4 = ttk.Combobox(page1, textvariable=language_var, width=6, font = default_font)
+
+language_dropdown1['values'] = list(langlist.keys())
+language_dropdown2['values'] = list(langlist.keys())
+# language_dropdown3['values'] = list(langlist.keys())
+# language_dropdown4['values'] = list(langlist.keys())
+
+
+language_dropdown1.grid(row=0, column=4, columnspan=2, padx=10, pady=10)
+language_dropdown2.grid(row=0, column=4, columnspan=2, padx=10, pady=10)
+# language_dropdown3.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+# language_dropdown4.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+
+language_dropdown1.bind('<<ComboboxSelected>>', update_language)
+language_dropdown2.bind('<<ComboboxSelected>>', update_language)
+# language_dropdown3.bind('<<ComboboxSelected>>', update_language)
+# language_dropdown4.bind('<<ComboboxSelected>>', update_language)
+
 language_var.set('English')
 
 
