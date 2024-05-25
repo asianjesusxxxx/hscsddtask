@@ -32,47 +32,45 @@ height = root.winfo_screenheight()
 # c= Canvas(root, bg="red", height=200, width=200)
 # c.grid(row=200, column=200)
 
-
+openpage = Frame(root, width=100, height=100)
 page1 =  Frame(root, width=100, height=100)
 page2 =  Frame(root, width=100, height=100)
 page3 =  Frame(root, width=100, height=100)
 page4 =  Frame(root, width=100, height=100)
 
-
+openpage.grid(row=0, column=0)
 page1.grid(row=0, column=0)
 page2.grid(row=0, column=0)
 page3.grid(row=0, column=0)
 page4.grid(row=0, column=0)
 
-
+page1.grid_forget()
 page2.grid_forget()
 page3.grid_forget()
+page4.grid_forget()
 
 default_font = ("Arial", 28)
 
-# timer 
-counting = False
+# # timer 
+# counting = False
 
-def conut_down(sec):
-    counting = True
-    while sec:
-        mins, secs = divmod(sec, 60)
-        time_format = "{:2d}:{:2d}".format(mins, secs)
-        print(time_format)
-        time.sleep(1)
-        sec = sec - 1
-    print("stop")
+# def conut_down(sec):
+#     counting = True
+#     while sec:
+#         mins, secs = divmod(sec, 60)
+#         time_format = "{:2d}:{:2d}".format(mins, secs)
+#         print(time_format)
+#         time.sleep(1)
+#         sec = sec - 1
+#     print("stop")
 
-conut_down(5)
+# conut_down(5)
 
-def putonscreen():
-    pass 
 
-    
 
-second_var = tk.StringVar(value=' 00 ')
-second_lbl = tk.Label(page4, font=('Arial', 50), textvariable=second_var)
-second_lbl.grid(row=0, column=0)
+# second_var = tk.StringVar(value=' 00 ')
+# second_lbl = tk.Label(page4, font=('Arial', 50), textvariable=second_var)
+# second_lbl.grid(row=0, column=0)
 
 
 def change_font_size(event):
@@ -124,12 +122,23 @@ def play(text):
     pygame.mixer.music.load(audio_stream)
     pygame.mixer.music.play()
 
+def clicked(event):
+    print("you pressed enter")
+    page1.grid(row=0, column=0)
+    lambda: page1.tkraise()
+    page2.grid_forget()
+    page3.grid_forget()
+    page4.grid_forget()
+    openpage.grid_forget()
+
 def show_page2():
     page2.grid(row=0, column=0)
     lambda: page2.tkraise()
     page1.grid_forget()
     page3.grid_forget()
     page4.grid_forget()
+    openpage.grid_forget()
+
 
 
 def show_page1():
@@ -138,6 +147,7 @@ def show_page1():
     page2.grid_forget()
     page3.grid_forget()
     page4.grid_forget()
+    openpage.grid_forget()
 
 
 def show_page3():
@@ -146,6 +156,7 @@ def show_page3():
     page1.grid_forget()
     page2.grid_forget()
     page4.grid_forget()
+    openpage.grid_forget()
 
 
 def show_page4():
@@ -154,6 +165,7 @@ def show_page4():
     page1.grid_forget()
     page2.grid_forget()
     page3.grid_forget()
+    openpage.grid_forget()
     updateq()
 
 
@@ -211,16 +223,11 @@ def update_language(event=None):
     translated_butt1 = translator.translate("next")
   
 
-
-
     lbl1.configure(text=translated_lbl1)
     t1.configure(text=translated_l1)
     playbutt1.configure(text=translated_playbutt1)
     butt1.configure(text=translated_butt1)
 
- 
-# lang = googletrans.LANGUAGES
-# langlist = list(lang.values())
 
 langlist = {
     'English': 'en',
@@ -232,6 +239,36 @@ langlist = {
     'Korean': 'ko',
     'Russian': 'ru'
 }
+
+
+
+root.bind("<Return>", clicked)
+
+# open page 
+imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/triangle2 open page.png"
+firstimg = ImageTk.PhotoImage(Image.open(imagepath))
+fi = Label(openpage, image=firstimg, text="")
+fi.grid(row=1, column=1) 
+
+label = customtkinter.CTkLabel(openpage, text= "press enter")
+label.grid(row=2, column=1)
+
+
+openpage.tkraise() 
+
+
+# open page 
+openpage.bind("<Return>", clicked)
+imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/triangle2 open page.png"
+firstimg = ImageTk.PhotoImage(Image.open(imagepath))
+fi = Label(openpage, image=firstimg, text="")
+fi.grid(row=1, column=1) 
+
+label = customtkinter.CTkLabel(openpage, text= "press enter to start")
+label.grid(row=2, column=1)
+
+
+
 
 # instructions page 1 
 lbl = customtkinter.CTkLabel(page1, text="            ")
@@ -317,18 +354,6 @@ playbutt6.grid(row=3, column=4)
 lbl3 = customtkinter.CTkLabel(page3, text="instructions:part 3", font = default_font)
 lbl3.grid(row=0, column=1)
 
-
-# imagepath = "C:/Users/praja/OneDrive/Desktop/ins3_tri-removebg.png"
-# img4 = ImageTk.PhotoImage(Image.open(imagepath))
-# t3 = Label(page3, image=img4, text="")
-# t3.grid(row=1, column=1) 
-
-# t4 = customtkinter.CTkLabel(page3, text="""
-#            angle sum of a triangle is 180 
-#                  90+45+45=180
-#            """, font = default_font)
-# t4.grid(row=1, column=2)
-
 sbutt3 = customtkinter.CTkButton(page3, text="start",command=show_page4, font = default_font)
 sbutt3.grid(row=4, column=2)
 
@@ -371,8 +396,7 @@ image_label = Label(page4)
 image_label.grid(row=2, column=3)
 
 
-#default font size
-# dsize = StringVar.set('24')
+
 
 #font size
 font_sizes = [24, 26, 28, 32, 34]
@@ -382,7 +406,6 @@ fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_si
 fontsize_combo3 = ttk.Combobox(page3, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
 fontsize_combo4 = ttk.Combobox(page4, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
 
-# selected_size.set(font_sizes[2])
 fontsize_combo1.current(2)  
 fontsize_combo2.current(2)  
 fontsize_combo3.current(2)  
@@ -398,7 +421,6 @@ fontsize_combo2.grid(row=0, column=3)
 fontsize_combo3.grid(row=0, column=3)
 fontsize_combo4.grid(row=0, column=3)
 
-# selected_size = StringVar.set('24')
  
 language_var = tk.StringVar()
 language_dropdown = ttk.Combobox(page1, textvariable=language_var, width=6, font = default_font)
