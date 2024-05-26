@@ -391,7 +391,7 @@ langlist = {
 root.bind("<Return>", clicked)
 
 # open page 
-imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/triangle2 open page.png"
+imagepath = "triangle2 open page.png"
 firstimg = ImageTk.PhotoImage(Image.open(imagepath))
 fi = Label(openpage, image=firstimg, text="")
 fi.grid(row=1, column=1) 
