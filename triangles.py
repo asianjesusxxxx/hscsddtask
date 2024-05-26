@@ -40,6 +40,7 @@ page4 =  Frame(root, width=100, height=100)
 page5 =  Frame(root, width=100, height=100)
 page6 =  Frame(root, width=100, height=100)
 page7 =  Frame(root, width=100, height=100)
+page8 =  Frame(root, width=100, height=100)
 
 openpage.grid(row=0, column=0)
 page1.grid(row=0, column=0)
@@ -49,6 +50,7 @@ page4.grid(row=0, column=0)
 page5.grid(row=0, column=0)
 page6.grid(row=0, column=0)
 page7.grid(row=0, column=0)
+page8.grid(row=0, column=0)
 
 page1.grid_forget()
 page2.grid_forget()
@@ -57,12 +59,11 @@ page4.grid_forget()
 page5.grid_forget()
 page6.grid_forget()
 page7.grid_forget()
+page8.grid_forget()
 
 default_font = ("Arial", 28)
 
-# second_var = tk.StringVar(value=' 00 ')
-# second_lbl = tk.Label(page4, font=('Arial', 50), textvariable=second_var)
-# second_lbl.grid(row=0, column=3)
+
 
 
 def change_font_size(event):
@@ -123,6 +124,8 @@ def clicked(event):
     page4.grid_forget()
     page6.grid_forget()
     page5.grid_forget()
+    page7.grid_forget()
+    page8.grid_forget()
     openpage.grid_forget()
 
 def contclicked(event):
@@ -134,6 +137,8 @@ def contclicked(event):
     page3.grid_forget()
     page6.grid_forget()
     page5.grid_forget()
+    page7.grid_forget()
+    page8.grid_forget()
     openpage.grid_forget()
 
 def show_page2():
@@ -144,6 +149,8 @@ def show_page2():
     page4.grid_forget()
     page6.grid_forget()
     page5.grid_forget()
+    page7.grid_forget()
+    page8.grid_forget()
     openpage.grid_forget()
 
 
@@ -156,6 +163,8 @@ def show_page1():
     page4.grid_forget()
     page6.grid_forget()
     page5.grid_forget()
+    page7.grid_forget()
+    page8.grid_forget()
     openpage.grid_forget()
 
 
@@ -167,6 +176,8 @@ def show_page3():
     page4.grid_forget()
     page6.grid_forget()
     page5.grid_forget()
+    page7.grid_forget()
+    page8.grid_forget()
     openpage.grid_forget()
 
 
@@ -178,8 +189,23 @@ def show_page4():
     page3.grid_forget()
     page6.grid_forget()
     page5.grid_forget()
+    page7.grid_forget()
+    page8.grid_forget()
     openpage.grid_forget()
     updateq()
+
+def show_page8():
+    page8.grid(row=0, column=0) 
+    lambda: page8.tkraise()
+    page1.grid_forget()
+    page2.grid_forget()
+    page3.grid_forget()
+    page4.grid_forget()
+    page6.grid_forget()
+    page5.grid_forget()
+    page7.grid_forget()
+    page8.grid_forget()
+    openpage.grid_forget()
 
 
 def updateq():
@@ -191,6 +217,9 @@ def updateq():
         tk_image = ImageTk.PhotoImage(resized_image)
         image_label.configure(image=tk_image)
         image_label.image = tk_image
+    # conut_down(10)
+    # if conut_down < 0 :
+    #     show_page8 
 
 def checkanswer():
     global current_q_index, score
@@ -199,10 +228,10 @@ def checkanswer():
     if user_answer == correct_answer:
         score+=1
         show_page5()
-        print(score)
         # reslbl.configure(text="correct")
     else:
         show_page6()
+        incorrect.configure(text = f"your answer is incorrect!!!The answer was {correct_answer}")
         # reslbl.configure(text=f"""incorrect! 
         #                   The answer was {correct_answer}""")
         # image_label.configure(image="")
@@ -230,7 +259,13 @@ def show_page6():
     page5.grid_forget()
     openpage.grid_forget()
 
-# # # timer 
+
+second_var = tk.StringVar(value=' 00 ')
+second_lbl = tk.Label(page4, font=('Arial', 50), textvariable=second_var)
+second_lbl.grid(row=0, column=3)
+# want_sec = IntVar()
+
+# # timer 
 # counting = False
 # def conut_down(sec):
 #     counting = True
@@ -240,11 +275,13 @@ def show_page6():
 #         print(time_format)
 #         time.sleep(1)
 #         sec = sec - 1
+#         # second_lbl.configure(text=sec)
 #     print("stop")
-# # conut_down(5)
+
+# conut_down(5)
 
 def nextq():
-    global current_q_index
+    global current_q_index, score 
     current_q_index += 1
     if current_q_index < total_q:
         updateq()
@@ -252,7 +289,7 @@ def nextq():
         show_page7()
         # reslbl.configure(text=" ")
         # image_label.configure(text=" ")
-        # qlbl.configure(text=f"You scores {score} out of {total_q}")
+        scorelbl.configure(text=f"You scores {score} out of {total_q}")
     
 def show_page7():
     page7.grid(row=0, column=0) 
@@ -394,17 +431,17 @@ playbutt2.grid(row=2, column=1)
 lbl2 = customtkinter.CTkLabel(page2, text="instructions:part 2", font = default_font)
 lbl2.grid(row=0, column=1)
 
-imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/ins2triangles1-removebg.png"
+imagepath = "ins2triangles1-removebg.png"
 img1 = ImageTk.PhotoImage(Image.open(imagepath))
 t2 = Label(page2, image=img1, text="")
 t2.grid(row=1, column=1) 
 
-imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/ins2triangles2-removebg.png"
+imagepath = "ins2triangles2-removebg.png"
 img2 = ImageTk.PhotoImage(Image.open(imagepath))
 t2 = Label(page2, image=img2, text="")
 t2.grid(row=2, column=1) 
 
-imagepath = "C:/Users/praja/OneDrive/Desktop/12sdd/ins2triangles3-removebg.png"
+imagepath = "ins2triangles3-removebg.png"
 img3 = ImageTk.PhotoImage(Image.open(imagepath))
 t2 = Label(page2, image=img3, text="")
 t2.grid(row=3, column=1) 
@@ -459,15 +496,15 @@ bbutt2.grid(row=4, column=0)
 
 #page4 - game
 questions = [ 
-    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi1.png"},
-    {"question": "what type of triangle is this?", "answer": "scalene", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/scal1.png"},
-    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso1.png"},
-    {"question": "what type of triangle is this?", "answer": "scalene", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/scal2.png"},
-    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi2.png"},
-    {"question": "what type of triangle is this?", "answer": "scalene", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/scal3.png"},
-    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso2.png"},
-    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/iso3.png"},
-    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "C:/users/praja/OneDrive/Desktop/12sdd/images/equi3.png"}, 
+    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "equi1.png"},
+    {"question": "what type of triangle is this?", "answer": "scalene", "image": "scal1.png"},
+    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "iso1.png"},
+    {"question": "what type of triangle is this?", "answer": "scalene", "image": "scal2.png"},
+    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "equi2.png"},
+    {"question": "what type of triangle is this?", "answer": "scalene", "image": "scal3.png"},
+    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "iso2.png"},
+    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "iso3.png"},
+    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "equi3.png"}, 
         ]
 
 current_q_index = 0
@@ -498,15 +535,21 @@ cont1.grid(row=2, column=1)
 root.bind("<Button-3>", contclicked)
 
 #page6 - incorrect
-correct_answer = questions[current_q_index]["answer"]
-incorrect = customtkinter.CTkLabel(page6, text = f"your answer is incorrect!!!The answer was {correct_answer}", font = default_font)
+# correct_answer = questions[current_q_index]["answer"]
+incorrect = customtkinter.CTkLabel(page6, text = "", font = default_font)
 incorrect.grid(row=1, column=1)
 cont2 = customtkinter.CTkLabel(page6, text = "right click to continue", font = default_font)
 cont2.grid(row=2, column=1)
 
 #page7 - score
-scorelbl = customtkinter.CTkLabel(page7, text=f"You scores {score} out of {total_q}", font = default_font)
+scorelbl = customtkinter.CTkLabel(page7, text="", font = default_font)
 scorelbl.grid(row=2, column=1)
+
+#page8 
+timelbl = customtkinter.CTkLabel(page8, text="times up", font = default_font)
+scorelbl.grid(row=2, column=1)
+cont3 = customtkinter.CTkLabel(page8, text = "right click to continue", font = default_font)
+cont3.grid(row=2, column=1)
 
 
 #font size
