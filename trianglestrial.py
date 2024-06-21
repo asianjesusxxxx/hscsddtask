@@ -10,7 +10,7 @@ import customtkinter
 
 root = customtkinter.CTk()
 root.title('triangles')
-root.geometry("1000x800")
+root.geometry("1600x800")
 
 
 customtkinter.set_appearance_mode("light")
@@ -33,7 +33,7 @@ switch = customtkinter.CTkSwitch(root, text="dark mode",
 switch.grid(row=0, column=6)
 print(switch.get())
 
-# root.mainloop()
+
 
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
@@ -288,10 +288,13 @@ t1.grid(row=1, column=1)
 butt1 = customtkinter.CTkButton(page1, text="next",command=show_page2, font = default_font)
 butt1.grid(row=2, column=2)
 
-playbutt1 = customtkinter.CTkButton(page1, text="Instructions", command=lambda: play("instructions part 1"), font = default_font)
+imagepath = "speakericon.png"
+speakerimg = customtkinter.CTkImage(Image.open(imagepath))
+
+playbutt1 = customtkinter.CTkButton(page1, text="", image=speakerimg, width=100, height=100, command=lambda: play("instructions part 1"), font = default_font)
 playbutt1.grid(row=0, column=2)
 
-playbutt2 = customtkinter.CTkButton(page1, text="Instructions", font = default_font, command=lambda: play("a triangle will be shown to you. calculate angle and identify the triangle.if your answer is correct then you will earn 1 point. if the answer is wrong no points will be deducted. answer every question before the 60 second timer runs out"))
+playbutt2 = customtkinter.CTkButton(page1, text="", image=speakerimg, width=2, height=2, font = default_font, command=lambda: play("a triangle will be shown to you. calculate angle and identify the triangle.if your answer is correct then you will earn 1 point. if the answer is wrong no points will be deducted. answer every question before the 60 second timer runs out"))
 playbutt2.grid(row=2, column=1)
 
 
