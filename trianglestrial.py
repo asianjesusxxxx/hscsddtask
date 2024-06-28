@@ -10,9 +10,6 @@ import customtkinter
 
 root = customtkinter.CTk()
 root.title('triangles')
-# root.geometry("2000x600")
-# root.state('zoomed')
-# root.resizable(False, False) 
 
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
@@ -29,34 +26,7 @@ page4 =  customtkinter.CTkFrame(root, width=1000, height=600)
 page5 =  customtkinter.CTkFrame(root, width=1000, height=600)
 page6 =  customtkinter.CTkFrame(root, width=1000, height=600)
 page7 =  customtkinter.CTkFrame(root, width=1000, height=600)
-page8 =  customtkinter.CTkFrame(root, width=1000, height=600)
 
-def changemode():
-    val=switch.get()
-    if val:
-        customtkinter.set_appearance_mode("dark")
-        switch.configure(text="dark mode")
-    else:
-        customtkinter.set_appearance_mode("light")
-        switch.configure(text="light mode")
-
-
-switch = customtkinter.CTkSwitch(page1, text="", 
-                   onvalue=1,
-                   offvalue=0,
-                   command=changemode)
-
-switch = customtkinter.CTkSwitch(page2, text="", 
-                   onvalue=1,
-                   offvalue=0,
-                   command=changemode)
-
-switch.grid(row=0, column=3)
-print(switch.get())
-
-customtkinter.set_appearance_mode("light")
-switch.configure(text="light mode")
-customtkinter.set_default_color_theme("dark-blue")
 
 
 #using grid to place the frames onto the gui
@@ -72,7 +42,6 @@ page4.grid_forget()
 page5.grid_forget()
 page6.grid_forget()
 page7.grid_forget()
-page8.grid_forget()
 
 #setting initial font size and colour
 default_font = ("Arial", 30)
@@ -86,7 +55,7 @@ def change_font_size(event):
     sbutt3.configure(font=("Arial", size))
     bbutt1.configure(font=("Arial", size))
     fontsize_combo1.configure(font=("Arial", size))
-    fontsize_combo2.configure(font=("Arial", size))
+    # fontsize_combo2.configure(font=("Arial", size))
     playbutt1.configure(font=("Arial", size))
     playbutt2.configure(font=("Arial", size))
     playbutt3.configure(font=("Arial", size))
@@ -127,27 +96,28 @@ def play(text):
 #defining functions for keyboard events
 def clicked(event):
     remove()
-    page1.grid(row=0, column=0)
+    page1.grid()
     page1.configure(width=1000, height=600)
     page1.grid_propagate(False)
 
 
 def contclicked(event):
     remove()
-    page4.grid(row=0, column=0)
+    page4.grid()
     page4.configure(width=1000, height=600)
     page4.grid_propagate(False)
 
 
-def unbind_return_key():
+def unbind_button3_key():
     root.unbind("<Button-3>")
-    print("Return key unbound")
+    print("button-3 key unbound")
 
 
 #defining functions to display different frames
 def show_page2():
+    command=lambda: play("next")
     remove()
-    page2.grid(row=0, column=0)
+    page2.grid()
     page2.configure(width=1000, height=600)
     page2.grid_propagate(False)
 
@@ -155,29 +125,24 @@ root.bind("<Return>", clicked)
 
 def show_page1():
     remove()
-    page1.grid(row=0, column=0) 
+    page1.grid() 
     page1.configure(width=1000, height=600)
     page1.grid_propagate(False)
 
 
 def show_page3():
     remove()
-    page3.grid(row=0, column=0) 
+    page3.grid() 
     page3.configure(width=1000, height=600)
     page3.grid_propagate(False)
 
 def show_page4():
     remove()
-    page4.grid(row=0, column=0) 
+    page4.grid() 
     page4.configure(width=1000, height=600)
     page4.grid_propagate(False)
     updateq()
 
-def show_page8():
-    remove()
-    page8.grid(row=0, column=0) 
-    page8.configure(width=1000, height=600)
-    page8.grid_propagate(False)
 
 def remove():
     openpage.grid_forget()
@@ -188,7 +153,7 @@ def remove():
     page5.grid_forget()
     page6.grid_forget()
     page7.grid_forget()
-    page8.grid_forget()
+
 
 #updating the question
 def updateq():
@@ -217,33 +182,34 @@ def checkanswer():
     ent.delete(0, END)
     nextq()
 
-#defining result pages
-def show_page5():
-    remove()
-    page5.grid(row=0, column=0)  
-    page5.configure(width=1000, height=600)
-    page5.grid_propagate(False)
-
-def show_page6():
-    remove()
-    page6.grid(row=0, column=0) 
-    page6.configure(width=1000, height=600)
-    page6.grid_propagate(False)
-
 
 #defining function to show next question or score
 def nextq():
     global current_q_index, score 
     current_q_index += 1
-    if current_q_index <= total_q:
+    if current_q_index < total_q:
         updateq()
     else:
+        unbind_button3_key()
         show_page7()
         scorelbl.configure(text=f"You scored {score} out of {total_q}")
         
-    
+
+#defining result pages
+def show_page5():
+    remove()
+    page5.grid()  
+    page5.configure(width=1000, height=600)
+    page5.grid_propagate(False)
+
+def show_page6():
+    remove()
+    page6.grid() 
+    page6.configure(width=1000, height=600)
+    page6.grid_propagate(False)
+
 def show_page7():
-    page7.grid(row=0, column=0) 
+    page7.grid() 
     lambda: page7.tkraise()
     page1.grid_forget()
     page2.grid_forget()
@@ -275,7 +241,7 @@ openpage.grid_columnconfigure(1, weight=0)  # Image and label column
 openpage.grid_columnconfigure(2, weight=1)  # Right spacer
 
 lbl1 = customtkinter.CTkLabel(page1, text="instructions", font = ("Arial", 40)) 
-lbl1.grid(row=1, column=1)
+lbl1.grid(row=0, column=1)
 
 t1= customtkinter.CTkLabel(page1, text="""
          a triangle will be shown to you. 
@@ -458,7 +424,8 @@ questions = [
     {"question": "6. what type of triangle is this?", "answer": "scalene", "image": "scal3.png"},
     {"question": "7. what type of triangle is this?", "answer": "isosceles", "image": "iso2.png"},
     {"question": "8. what type of triangle is this?", "answer": "isosceles", "image": "iso3.png"},
-    {"question": "9. what type of triangle is this?", "answer": "equilateral", "image": "equi3.png"}, 
+    {"question": "9. what type of triangle is this?", "answer": "equilateral", "image": "equi3.png"},
+    {"question": "10. what type of triangle is this?", "answer": "scalene", "image": "scal2.png"},
         ]
 
 current_q_index = 0
@@ -545,49 +512,63 @@ page7.grid_columnconfigure(0, weight=1)  # Left spacer
 page7.grid_columnconfigure(1, weight=0)  # Image and label column
 page7.grid_columnconfigure(2, weight=1) 
 
-imagepath = "settingsicon.png"
-settingsimg = customtkinter.CTkImage(Image.open(imagepath))
 
-settingsbutton = customtkinter.CTkButton(page1, image=settingsimg, text="", width=100, height=100)
-settingsbutton.grid(row=3, column=4)
+# Create the settings frame (initially hidden)
+settings_frame = customtkinter.CTkFrame(page1, width=30, height=10)
+settings_frame.grid_remove()
+
+# Function to show/hide the settings frame
+def toggle_settings():
+    if settings_frame.winfo_viewable():
+        settings_frame.grid_remove()
+    else:
+        settings_frame.grid(row=0, column=0, sticky="nsew", columnspan=1)
+        # lambda: settings_frame.tkraise()
+        settings_frame.grid_propagate(False)
 
 
+def changemode():
+    val=switch.get()
+    if val:
+        customtkinter.set_appearance_mode("dark")
+        # switch.configure(text="dark")
+    else:
+        customtkinter.set_appearance_mode("light")
+        # switch.configure(text="light")
 
-# mymenu = Menu(root)
-# root.configure(menu=mymenu)
 
-# def mycommand():
-#     pass
+switch = customtkinter.CTkSwitch(settings_frame, text="", 
+                   onvalue=1,
+                   offvalue=0,
+                   command=changemode)
 
-# filemenu = Menu(mymenu)
-# mymenu.add_cascade(label="settings", menu=filemenu)
-# # filemenu.add_command(label="font size", command=mycommand)
-# # filemenu.add_command(label="speech", command=mycommand)
-# # filemenu.add_command(label="mode", command=mycommand)
-# filemenu.add_separator()
-# filemenu.add_command(label="exit", command=root.quit)
 
-# filemenu = Menu(mymenu)
-# mymenu.add_cascade(label="settings", menu=filemenu)
-# filemenu.add_command(label="font size", command=mycommand)
+switch.grid(row=0, column=0)
+print(switch.get())
 
-# filemenu.add_separator()
-# filemenu.add_command(label="exit", command=root.quit)
+customtkinter.set_appearance_mode("light")
+# switch.configure(text="")
+customtkinter.set_default_color_theme("dark-blue")
 
 #font size
 font_sizes = [28, 30, 32, 34]
 selected_size = StringVar()
-fontsize_combo1 = ttk.Combobox(page1, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
-fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
+fontsize_combo1 = ttk.Combobox(settings_frame, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
+# fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
 
 fontsize_combo1.current(1)  
-fontsize_combo2.current(1)  
+# fontsize_combo2.current(1)  
 
 fontsize_combo1.bind("<<ComboboxSelected>>", change_font_size)
-fontsize_combo2.bind("<<ComboboxSelected>>", change_font_size)
+# fontsize_combo2.bind("<<ComboboxSelected>>", change_font_size)
 
-fontsize_combo1.grid(row=0, column=4)
-fontsize_combo2.grid(row=0, column=4)
+fontsize_combo1.grid(row=1, column=0)
+# fontsize_combo2.grid(row=0, column=4)
+
+imagepath = "settingsicon.png"
+settingsimg = customtkinter.CTkImage(Image.open(imagepath))
+settingsbutton = customtkinter.CTkButton(page1, image=settingsimg, text="", width=12, height=12, command=toggle_settings)
+settingsbutton.grid(row=0, column=0)
 
 page1.grid_propagate(False)
 page2.grid_propagate(False)
@@ -596,6 +577,7 @@ page4.grid_propagate(False)
 page5.grid_propagate(False)
 page6.grid_propagate(False)
 page7.grid_propagate(False)
-page8.grid_propagate(False)
+settings_frame.grid_propagate(False)
+
 
 root.mainloop()
