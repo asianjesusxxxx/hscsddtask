@@ -59,9 +59,6 @@ switch.configure(text="light mode")
 customtkinter.set_default_color_theme("dark-blue")
 
 
-# propagrating frames to satay dsfhauidsfhvaeu
-# page1.grid_propagate(False)
-
 #using grid to place the frames onto the gui
 openpage.grid(row=0,column=0)
 openpage.configure(width=1000, height=600)
@@ -78,8 +75,7 @@ page7.grid_forget()
 page8.grid_forget()
 
 #setting initial font size and colour
-default_font = ("Arial", 28)
-# default_fontcolor = "black"
+default_font = ("Arial", 30)
 
 #defining function to change font size
 def change_font_size(event):
@@ -142,6 +138,12 @@ def contclicked(event):
     page4.configure(width=1000, height=600)
     page4.grid_propagate(False)
 
+
+def unbind_return_key():
+    root.unbind("<Button-3>")
+    print("Return key unbound")
+
+
 #defining functions to display different frames
 def show_page2():
     remove()
@@ -149,6 +151,7 @@ def show_page2():
     page2.configure(width=1000, height=600)
     page2.grid_propagate(False)
 
+root.bind("<Return>", clicked)
 
 def show_page1():
     remove()
@@ -193,7 +196,7 @@ def updateq():
     image_path = questions[current_q_index].get("image")
     if image_path:
         image = Image.open(image_path)
-        resized_image = image.resize((200, 200), Image.Resampling.LANCZOS)
+        resized_image = image.resize((300, 300), Image.Resampling.LANCZOS)
         tk_image = ImageTk.PhotoImage(resized_image)
         image_label.configure(image=tk_image)
         image_label.image = tk_image
@@ -201,7 +204,7 @@ def updateq():
 #checking answer
 def checkanswer():
     global current_q_index, score
-    user_answer = ent.get()
+    user_answer = ent.get().lower().strip()
     correct_answer = questions[current_q_index]["answer"]
     if user_answer == correct_answer:
         score+=1
@@ -210,8 +213,7 @@ def checkanswer():
     else:
         show_page6()
         incorrect.configure(text = f"your answer is incorrect!!!The answer was {correct_answer}")
-
-        
+        root.bind("<Button-3>", contclicked) 
     ent.delete(0, END)
     nextq()
 
@@ -233,11 +235,12 @@ def show_page6():
 def nextq():
     global current_q_index, score 
     current_q_index += 1
-    if current_q_index < total_q:
+    if current_q_index <= total_q:
         updateq()
     else:
         show_page7()
         scorelbl.configure(text=f"You scored {score} out of {total_q}")
+        
     
 def show_page7():
     page7.grid(row=0, column=0) 
@@ -249,8 +252,6 @@ def show_page7():
     page6.grid_forget()
     openpage.grid_forget()
         
-
-root.bind("<Return>", clicked)
 
 # open page 
 imagepath = "triangle2 open page.png"
@@ -273,21 +274,6 @@ openpage.grid_columnconfigure(0, weight=1)  # Left spacer
 openpage.grid_columnconfigure(1, weight=0)  # Image and label column
 openpage.grid_columnconfigure(2, weight=1)  # Right spacer
 
-# openpage.tkraise() 
-
-#next abd bacj buttin
-# def next():
-#     if page1
-#     show_page2
-
-
-# next_button = customtkinter.CTkButton(root, text="next",command=next, font = default_font)
-# next_button.grid(row=4, column=3)
-
-# instructions page 1 - buttons and labels
-# lbl = customtkinter.CTkLabel(page1, text="            ")
-# lbl.grid(row=2, column=0)
-
 lbl1 = customtkinter.CTkLabel(page1, text="instructions", font = ("Arial", 40)) 
 lbl1.grid(row=1, column=1)
 
@@ -309,6 +295,7 @@ playbutt1.grid(row=0, column=2)
 
 playbutt2 = customtkinter.CTkButton(page1, text="", image=speakerimg, width=12, height=12, font = default_font, command=lambda: play("a triangle will be shown to you. calculate angle and identify the triangle.if your answer is correct then you will earn 1 point. if the answer is wrong no points will be deducted. answer every question before the 60 second timer runs out"))
 playbutt2.grid(row=3, column=1)
+
 
 # Configure the rows and columns
 page1.grid_rowconfigure(0, weight=1)  # spacer
@@ -373,8 +360,6 @@ def destroy():
 #instructions page 2 - buttons, labels and images
 lbl2 = customtkinter.CTkLabel(page2, text="lessons", font = ("Arial", 40))
 lbl2.grid(row=1, column=1)
-# butt2 = customtkinter.CTkButton(page2, text="next",command=show_page3, font = default_font)
-# butt2.grid(row=4, column=3)
 
 sbutt3 = customtkinter.CTkButton(page2, text="start",command=show_page4, font = default_font)
 sbutt3.grid(row=4, column=2)
@@ -465,15 +450,15 @@ page3.grid_columnconfigure(2, weight=1)  # Right spacer
 
 #page4 - quiz
 questions = [ 
-    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "equi1.png"},
-    {"question": "what type of triangle is this?", "answer": "scalene", "image": "scal1.png"},
-    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "iso1.png"},
-    {"question": "what type of triangle is this?", "answer": "scalene", "image": "scal2.png"},
-    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "equi2.png"},
-    {"question": "what type of triangle is this?", "answer": "scalene", "image": "scal3.png"},
-    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "iso2.png"},
-    {"question": "what type of triangle is this?", "answer": "isosceles", "image": "iso3.png"},
-    {"question": "what type of triangle is this?", "answer": "equilateral", "image": "equi3.png"}, 
+    {"question": "1. what type of triangle is this?", "answer": "equilateral", "image": "equi1.png"},
+    {"question": "2. what type of triangle is this?", "answer": "scalene", "image": "scal1.png"},
+    {"question": "3. what type of triangle is this?", "answer": "isosceles", "image": "iso1.png"},
+    {"question": "4. what type of triangle is this?", "answer": "scalene", "image": "scal2.png"},
+    {"question": "5. what type of triangle is this?", "answer": "equilateral", "image": "equi2.png"},
+    {"question": "6. what type of triangle is this?", "answer": "scalene", "image": "scal3.png"},
+    {"question": "7. what type of triangle is this?", "answer": "isosceles", "image": "iso2.png"},
+    {"question": "8. what type of triangle is this?", "answer": "isosceles", "image": "iso3.png"},
+    {"question": "9. what type of triangle is this?", "answer": "equilateral", "image": "equi3.png"}, 
         ]
 
 current_q_index = 0
@@ -481,12 +466,8 @@ total_q = len(questions)
 score = 0
 
 #question label
-qlbl = customtkinter.CTkLabel(page4, text="what type of triangle is this?", font = ("Arial", 40))
+qlbl = customtkinter.CTkLabel(page4, text="", font = ("Arial", 40))
 qlbl.grid(row=1, column=0)
-
-#result label
-# reslbl = customtkinter.CTkLabel(page4, text="", font = default_font)
-# reslbl.grid(row=3, column=0)
 
 #entry widget
 ent = customtkinter.CTkEntry(page4, font = default_font)
@@ -518,7 +499,6 @@ correct.grid(row=1, column=1)
 cont1 = customtkinter.CTkLabel(page5, text = "right click to continue", font = default_font)
 cont1.grid(row=2, column=1)
 
-# root.bind("<Button-3>", contclicked)
 
 # Configure the rows and columns
 page5.grid_rowconfigure(0, weight=1)  # spacer
@@ -554,15 +534,36 @@ page6.grid_columnconfigure(2, weight=1)
 scorelbl = customtkinter.CTkLabel(page7, text="", font = default_font)
 scorelbl.grid(row=2, column=1)
 
-mymenu = Menu(root)
-root.configure(menu=mymenu)
+page7.grid_rowconfigure(0, weight=1)  # spacer
+page7.grid_rowconfigure(1, weight=0)  # qlbl
+page7.grid_rowconfigure(2, weight=0)  # entry
+page7.grid_rowconfigure(3, weight=0)  # subutt
+page7.grid_rowconfigure(4, weight=1)  # spacer
 
-def mycommand():
-    pass
+page7.grid_columnconfigure(0, weight=1)  # 
+page7.grid_columnconfigure(0, weight=1)  # Left spacer
+page7.grid_columnconfigure(1, weight=0)  # Image and label column
+page7.grid_columnconfigure(2, weight=1) 
+
+imagepath = "settingsicon.png"
+settingsimg = customtkinter.CTkImage(Image.open(imagepath))
+
+settingsbutton = customtkinter.CTkButton(page1, image=settingsimg, text="", width=100, height=100)
+settingsbutton.grid(row=3, column=4)
+
+
+
+# mymenu = Menu(root)
+# root.configure(menu=mymenu)
+
+# def mycommand():
+#     pass
 
 # filemenu = Menu(mymenu)
-# mymenu.add_cascade(label="file", menu=filemenu)
-# filemenu.add_command(label="new", command=mycommand)
+# mymenu.add_cascade(label="settings", menu=filemenu)
+# # filemenu.add_command(label="font size", command=mycommand)
+# # filemenu.add_command(label="speech", command=mycommand)
+# # filemenu.add_command(label="mode", command=mycommand)
 # filemenu.add_separator()
 # filemenu.add_command(label="exit", command=root.quit)
 
@@ -574,13 +575,13 @@ def mycommand():
 # filemenu.add_command(label="exit", command=root.quit)
 
 #font size
-font_sizes = [24, 26, 28, 32, 34]
+font_sizes = [28, 30, 32, 34]
 selected_size = StringVar()
 fontsize_combo1 = ttk.Combobox(page1, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
 fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
 
-fontsize_combo1.current(2)  
-fontsize_combo2.current(2)  
+fontsize_combo1.current(1)  
+fontsize_combo2.current(1)  
 
 fontsize_combo1.bind("<<ComboboxSelected>>", change_font_size)
 fontsize_combo2.bind("<<ComboboxSelected>>", change_font_size)
