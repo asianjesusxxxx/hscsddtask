@@ -29,7 +29,7 @@ page7 =  customtkinter.CTkFrame(root, width=1000, height=600)
 
 
 
-#using grid to place the frames onto the gui
+#using grid to place the first frame onto the gui
 openpage.grid(row=0,column=0)
 openpage.configure(width=1000, height=600)
 openpage.grid_propagate(False)
@@ -43,7 +43,7 @@ page5.grid_forget()
 page6.grid_forget()
 page7.grid_forget()
 
-#setting initial font size and colour
+#setting initial font size and font
 default_font = ("Arial", 30)
 
 #defining function to change font size
@@ -54,10 +54,7 @@ def change_font_size(event):
     butt1.configure(font=("Arial", size))
     sbutt3.configure(font=("Arial", size))
     bbutt1.configure(font=("Arial", size))
-    fontsize_combo1.configure(font=("Arial", size))
-    # fontsize_combo2.configure(font=("Arial", size))
     playbutt1.configure(font=("Arial", size))
-    playbutt2.configure(font=("Arial", size))
     playbutt3.configure(font=("Arial", size))
     playbutt4.configure(font=("Arial", size))
     playbutt5.configure(font=("Arial", size))
@@ -65,9 +62,6 @@ def change_font_size(event):
     l1.configure(font=("Arial", size))
     l2.configure(font=("Arial", size))
     l3.configure(font=("Arial", size))
-    l4.configure(font=("Arial", size))
-    l5.configure(font=("Arial", size))
-    l6.configure(font=("Arial", size)) 
     ent.configure(font=("Arial", size))
     subutt.configure(font=("Arial", size)) 
     scorelbl.configure(font=("Arial", size)) 
@@ -76,9 +70,9 @@ def change_font_size(event):
     equi_button.configure(font=("Arial", size)) 
     iso_button.configure(font=("Arial", size)) 
     sca_button.configure(font=("Arial", size)) 
-    switch.configure(font=("Arial", size)) 
     incorrect.configure(font=("Arial", size)) 
     correct.configure(font=("Arial", size)) 
+  
 
 
 
@@ -115,7 +109,7 @@ def unbind_button3_key():
 
 #defining functions to display different frames
 def show_page2():
-    command=lambda: play("next")
+    lambda: play("next")
     remove()
     page2.grid()
     page2.configure(width=1000, height=600)
@@ -243,10 +237,17 @@ openpage.grid_columnconfigure(2, weight=1)  # Right spacer
 lbl1 = customtkinter.CTkLabel(page1, text="instructions", font = ("Arial", 40)) 
 lbl1.grid(row=0, column=1)
 
+# page1
+
 t1= customtkinter.CTkLabel(page1, text="""
-         a triangle will be shown to you. 
-         identify the type of triangle.
-         if your answer is correct then you will earn 1 point.
+    once you start the quiz a 
+    triangle will be shown to you. 
+    if your answer is correct 
+    then you will earn 1 point. 
+    adjust the font size 
+    or mode by clicking settings. 
+    press enter at any time 
+                           to come back to this page.                  
          """, font = default_font)
 t1.grid(row=2, column=1)
 
@@ -256,11 +257,8 @@ butt1.grid(row=4, column=2)
 imagepath = "speakericon.png"
 speakerimg = customtkinter.CTkImage(Image.open(imagepath))
 
-playbutt1 = customtkinter.CTkButton(page1, text="", image=speakerimg, width=12, height=12, command=lambda: play("instructions part 1"), font = default_font)
+playbutt1 = customtkinter.CTkButton(page1, text="", image=speakerimg, width=12, height=12, command=lambda: play(" once you start the quiz a triangle will be shown to you. if your answer is correct then you will earn 1 point. adjust the font size or mode by clicking settings. press enter at any time to come back to this page. "), font = default_font)
 playbutt1.grid(row=0, column=2)
-
-playbutt2 = customtkinter.CTkButton(page1, text="", image=speakerimg, width=12, height=12, font = default_font, command=lambda: play("a triangle will be shown to you. calculate angle and identify the triangle.if your answer is correct then you will earn 1 point. if the answer is wrong no points will be deducted. answer every question before the 60 second timer runs out"))
-playbutt2.grid(row=3, column=1)
 
 
 # Configure the rows and columns
@@ -281,7 +279,7 @@ def show_equi_instructions():
     show_page3()
     t2.grid(row=1, column=0)
     l1.grid(row=1, column=2)
-    l4.grid(row=1, column=3)
+    # l4.grid(row=1, column=3)
     playbutt4.grid(row=1, column=4)
 
 def show_iso_instructions():
@@ -290,7 +288,7 @@ def show_iso_instructions():
     show_page3()
     t3.grid(row=1, column=0)
     l2.grid(row=1, column=2)
-    l5.grid(row=1, column=3)
+    # l5.grid(row=1, column=3)
     playbutt5.grid(row=1, column=4)
 
 def show_sca_instructions():
@@ -299,33 +297,33 @@ def show_sca_instructions():
     show_page3()
     t4.grid(row=1, column=0)
     l3.grid(row=1, column=2)
-    l6.grid(row=1, column=3)
+    # l6.grid(row=1, column=3)
     playbutt6.grid(row=1, column=4)
 
 def destroy():
     # equi_button.grid_forget()
     t2.grid_forget()
     l1.grid_forget()
-    l4.grid_forget()
+    # l4.grid_forget()
     playbutt4.grid_forget()
 
     # iso_button.grid_forget()
     t3.grid_forget()
     l2.grid_forget()
-    l5.grid_forget()
+    # l5.grid_forget()
     playbutt5.grid_forget()
 
     # sca_button.grid_forget()
     t4.grid_forget()
     l3.grid_forget()
-    l6.grid_forget()
+    # l6.grid_forget()
     playbutt6.grid_forget()
 
 
 
-#instructions page 2 - buttons, labels and images
+#page 2 - buttons, labels and images
 lbl2 = customtkinter.CTkLabel(page2, text="lessons", font = ("Arial", 40))
-lbl2.grid(row=1, column=1)
+lbl2.grid(row=0, column=1)
 
 sbutt3 = customtkinter.CTkButton(page2, text="start",command=show_page4, font = default_font)
 sbutt3.grid(row=4, column=2)
@@ -334,18 +332,18 @@ bbutt2 = customtkinter.CTkButton(page2, text="back",command=show_page1, font = d
 bbutt2.grid(row=4, column=0)
 
 # equilateral triangle
-equi_button = customtkinter.CTkButton(page2, text="equilateral", command=show_equi_instructions)
+equi_button = customtkinter.CTkButton(page2, text="equilateral", command=show_equi_instructions, font = default_font)
 equi_button.grid(row=2,column=0)
 
 # isoscles triangle
-iso_button = customtkinter.CTkButton(page2, text="isoceles", command=show_iso_instructions)
+iso_button = customtkinter.CTkButton(page2, text="isoceles", command=show_iso_instructions, font = default_font)
 iso_button.grid(row=2,column=1)
 
 # scalene triangle
-sca_button = customtkinter.CTkButton(page2, text="scalene", command=show_sca_instructions)
+sca_button = customtkinter.CTkButton(page2, text="scalene", command=show_sca_instructions, font = default_font)
 sca_button.grid(row=2,column=2)
 
-playbutt3 = customtkinter.CTkButton(page2, text="", image=speakerimg, width=12, height=12, command=lambda: play("instructions part 2"), font = default_font)
+playbutt3 = customtkinter.CTkButton(page2, text="", image=speakerimg, width=12, height=12, command=lambda: play("lessons"), font = default_font)
 playbutt3.grid(row=0, column=2)
 
 # Configure the rows and columns
@@ -367,34 +365,33 @@ imagepath = "ins2triangles1-removebg.png"
 img1 = ImageTk.PhotoImage(Image.open(imagepath))
 t2 = Label(page3, image=img1, text="")
 
-l1 = customtkinter.CTkLabel(page3, text = "equilateral triangle", font = default_font)
+l1 = customtkinter.CTkLabel(page3, text = '''an equilateral triangle has 
+three equal sides and 
+three equal angles''', font = default_font)
 
-l4 = customtkinter.CTkLabel(page3, text = "3 equal sides", font = default_font)
-
-playbutt4 = customtkinter.CTkButton(page3, text="", image=speakerimg, width=12, height=12, command=lambda: play("an equilateral triangle has three equal sides"), font = default_font)
+playbutt4 = customtkinter.CTkButton(page3, text="", image=speakerimg, width=12, height=12, command=lambda: play("an equilateral triangle has three equal sides and three equal angles"), font = default_font)
 
 # isosceles
 imagepath = "ins2triangles2-removebg.png"
 img2 = ImageTk.PhotoImage(Image.open(imagepath))
 t3 = Label(page3, image=img2, text="")
 
-l2 = customtkinter.CTkLabel(page3, text = "isosceles triangle", font = default_font)
+l2 = customtkinter.CTkLabel(page3, text = '''an isosceles triangle has 
+two equal sides and 
+two equal angles  ''', font = default_font)
 
-l5 = customtkinter.CTkLabel(page3, text = "two equal sides", font = default_font)
-
-playbutt5 = customtkinter.CTkButton(page3, text="", image=speakerimg, width=12, height=12, command=lambda: play("an isosceles triangle has two equal sides"), font = default_font)
+playbutt5 = customtkinter.CTkButton(page3, text="", image=speakerimg, width=12, height=12, command=lambda: play("an isosceles triangle has two equal sides and two equal angles"), font = default_font)
 
 # scalene
 imagepath = "ins2triangles3-removebg.png"
 img3 = ImageTk.PhotoImage(Image.open(imagepath))
 t4 = Label(page3, image=img3, text="")
 
-l3 = customtkinter.CTkLabel(page3, text = "scalene triangle", font = default_font)
+l3 = customtkinter.CTkLabel(page3, text = '''a scalene triangle has 
+no equal sides and 
+no equal angles''', font = default_font)
 
-l6 = customtkinter.CTkLabel(page3, text = "no equal sides", font = default_font)
-
-playbutt6 = customtkinter.CTkButton(page3, text="", image=speakerimg, width=12, height=12, command=lambda: play("a scalene triangle has no equal sides"), font = default_font)
-
+playbutt6 = customtkinter.CTkButton(page3, text="", image=speakerimg, width=12, height=12, command=lambda: play("a scalene triangle has no equal sides and no equal angles"), font = default_font)
 
 sbutt3 = customtkinter.CTkButton(page3, text="start",command=show_page4, font = default_font)
 sbutt3.grid(row=4, column=3)
@@ -446,6 +443,9 @@ subutt.grid(row=3, column=0)
 
 image_label = Label(page4)
 image_label.grid(row=2, column=2)
+
+play_ques = customtkinter.CTkButton(page4, text="", image=speakerimg, width=12, height=12, command=lambda: play("what type of triangle is this?"), font = default_font)
+play_ques.grid(row=1, column=1)
 
 # Configure the rows and columns
 page4.grid_rowconfigure(0, weight=1)  # spacer
@@ -514,7 +514,7 @@ page7.grid_columnconfigure(2, weight=1)
 
 
 # Create the settings frame (initially hidden)
-settings_frame = customtkinter.CTkFrame(page1, width=30, height=10)
+settings_frame = customtkinter.CTkFrame(page1)
 settings_frame.grid_remove()
 
 # Function to show/hide the settings frame
@@ -522,8 +522,8 @@ def toggle_settings():
     if settings_frame.winfo_viewable():
         settings_frame.grid_remove()
     else:
-        settings_frame.grid(row=0, column=0, sticky="nsew", columnspan=1)
-        # lambda: settings_frame.tkraise()
+        settings_frame.grid(row=0, column=2, sticky="nsew")
+        settings_frame.configure(width=10, height=10)
         settings_frame.grid_propagate(False)
 
 
@@ -531,13 +531,10 @@ def changemode():
     val=switch.get()
     if val:
         customtkinter.set_appearance_mode("dark")
-        # switch.configure(text="dark")
     else:
         customtkinter.set_appearance_mode("light")
-        # switch.configure(text="light")
 
-
-switch = customtkinter.CTkSwitch(settings_frame, text="", 
+switch = customtkinter.CTkSwitch(settings_frame, text="",
                    onvalue=1,
                    offvalue=0,
                    command=changemode)
@@ -546,30 +543,25 @@ switch = customtkinter.CTkSwitch(settings_frame, text="",
 switch.grid(row=0, column=0)
 print(switch.get())
 
+# setting initial mode
 customtkinter.set_appearance_mode("light")
-# switch.configure(text="")
 customtkinter.set_default_color_theme("dark-blue")
 
 #font size
 font_sizes = [28, 30, 32, 34]
 selected_size = StringVar()
 fontsize_combo1 = ttk.Combobox(settings_frame, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
-# fontsize_combo2 = ttk.Combobox(page2, textvariable=selected_size, values=font_sizes, width=2, font = default_font)
-
 fontsize_combo1.current(1)  
-# fontsize_combo2.current(1)  
-
 fontsize_combo1.bind("<<ComboboxSelected>>", change_font_size)
-# fontsize_combo2.bind("<<ComboboxSelected>>", change_font_size)
+fontsize_combo1.grid(row=0, column=1)
 
-fontsize_combo1.grid(row=1, column=0)
-# fontsize_combo2.grid(row=0, column=4)
-
+# settings
 imagepath = "settingsicon.png"
 settingsimg = customtkinter.CTkImage(Image.open(imagepath))
 settingsbutton = customtkinter.CTkButton(page1, image=settingsimg, text="", width=12, height=12, command=toggle_settings)
-settingsbutton.grid(row=0, column=0)
+settingsbutton.grid(row=0, column=3)
 
+# to ensure frames do not resize
 page1.grid_propagate(False)
 page2.grid_propagate(False)
 page3.grid_propagate(False)
